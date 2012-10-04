@@ -35,6 +35,12 @@ public class InteractTrigger implements ITrigger, Listener {
                 );
 
     }
+    
+    public String save(){return "interact|" + 
+    l.getWorld().getName() + ":" + 
+    l.getBlockX() + ":" + 
+    l.getBlockY() + ":" + 
+    l.getBlockZ() + ":";}
 
     public boolean checkAchievement(Player player) {
 

@@ -28,7 +28,8 @@ public class EconomyTrigger implements ITrigger {
 		setupEconomy();
 		amount = Double.parseDouble(config);
 	}
-
+	
+	public String save(){return "bankbalance|" + amount;}
 
 	public boolean checkAchievement(Player player) {
 		if(setupEconomy()){

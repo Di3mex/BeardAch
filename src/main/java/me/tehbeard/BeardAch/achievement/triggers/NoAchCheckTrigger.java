@@ -23,6 +23,8 @@ public class NoAchCheckTrigger implements ITrigger {
 	public void configure(Achievement ach,String config) {
 		this.ach = config;
 	}
+	
+	public String save(){return "noach|" + ach;}
 
 	public boolean checkAchievement(Player player) {
 		//if player has an acheivement, return false

@@ -19,6 +19,8 @@ public class PermCheckTrigger implements ITrigger {
 	public void configure(Achievement ach,String config) {
 		perm = config;
 	}
+	
+	public String save(){return "perm|" + perm;}
 
 	
 	public boolean checkAchievement(Player player) {

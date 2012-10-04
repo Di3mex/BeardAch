@@ -39,6 +39,7 @@ public class CuboidKingOfTheHillTrigger implements ITrigger,Listener {
             time = Integer.parseInt(con[1]);
         }
     }
+    public String save(){return "koth|" + c.toString() + "/" + time;}
 
     public boolean checkAchievement(Player player) {
 

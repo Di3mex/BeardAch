@@ -42,6 +42,8 @@ public class WorldGuardRegionTrigger implements ITrigger,Listener{
 
 
     }
+    
+    public String save(){return "wgregion|" + world +":"+ region;}
 
     public boolean checkAchievement(Player player) {
         if(rm==null){

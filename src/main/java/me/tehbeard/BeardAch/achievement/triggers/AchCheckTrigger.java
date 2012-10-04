@@ -26,6 +26,8 @@ public class AchCheckTrigger implements ITrigger {
 	public void configure(Achievement Ach,String config) {
 		ach = config;
 	}
+	
+	public String save(){return "ach|" + ach;}
 
 	public boolean checkAchievement(Player player) {
 		//if player has an acheivement

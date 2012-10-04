@@ -34,7 +34,8 @@ public class StatWithinTrigger implements ITrigger {
 		}
 
 	}
-
+	
+	public String save(){return "statwithin|" + cat + ":" + stat + ":" + lowerThreshold + ":" + upperThreshold;}
 
 	public boolean checkAchievement(Player player) {
 		if(manager!=null){

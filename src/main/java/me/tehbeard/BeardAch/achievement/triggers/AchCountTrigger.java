@@ -34,6 +34,8 @@ public class AchCountTrigger implements ITrigger {
 	    }
 	    
 	}
+	
+	public String save(){return "achcount|" + prefix + ":" + threshold;}
 
 	public boolean checkAchievement(Player player) {
 		//if player has an acheivement

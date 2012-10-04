@@ -32,7 +32,9 @@ public class StatCheckTrigger implements ITrigger {
 
 		}
 	}
-
+	
+	public String save(){return "stat|" + cat + ":" + stat + ":" + threshold;}
+	
 	public boolean checkAchievement(Player player) {
 		//if player has stat
 		if(manager!=null){

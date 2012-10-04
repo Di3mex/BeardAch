@@ -19,7 +19,9 @@ public class LockedTrigger implements ITrigger {
 	public void configure(Achievement ach,String config) {
 	    BeardAch.printCon("[ALERT] Achievement " + ach.getName() + " is locked and will not trigger");
 	}
-
+	public String save(){
+	    return "locked|";
+	}
 
 	public boolean checkAchievement(Player player) {
 

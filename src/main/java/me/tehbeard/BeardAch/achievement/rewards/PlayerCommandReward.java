@@ -16,6 +16,8 @@ public class PlayerCommandReward implements IReward {
         comm = config;
         
     }
+    
+    public String save(){return "playercommand|" + comm;}
 
     public void giveReward(Player player) {
         

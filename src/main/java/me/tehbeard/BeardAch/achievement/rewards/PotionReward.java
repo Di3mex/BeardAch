@@ -23,6 +23,7 @@ public class PotionReward implements IReward {
         effect = new PotionEffect(type, duration, amplifier);
 
     }
+    public String save(){return "potion|"+ effect.getType().toString() + ":" + effect.getAmplifier() + ":" + (effect.getDuration()/20);}
 
     public void giveReward(Player player) {
         effect.apply(player);

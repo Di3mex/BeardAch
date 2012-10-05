@@ -27,6 +27,7 @@ public class CounterReward implements  IReward{
 		}
 
 	}
+	public String save(){return "counter|" + name + ":" + count;}
 
 
 	public void giveReward(Player player) {

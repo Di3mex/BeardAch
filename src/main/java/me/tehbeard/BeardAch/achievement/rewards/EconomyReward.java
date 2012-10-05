@@ -26,6 +26,8 @@ public class EconomyReward implements IReward {
 		}
 		return (economy != null);
 	}
+	
+	public String save(){return "money|" + amount;}
 
 	public void configure(Achievement Ach,String config) {
 		setupEconomy();

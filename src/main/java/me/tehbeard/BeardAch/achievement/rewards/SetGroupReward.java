@@ -26,6 +26,7 @@ public class SetGroupReward implements IReward {
         }
         return (perms != null);
     }
+    public String save(){return "vaultaddgroup|" + group;}
 
     public void configure(Achievement ach, String config) {
         group = config;

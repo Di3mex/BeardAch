@@ -26,6 +26,15 @@ public class TeleportReward implements IReward {
         
     }
 
+    public String save(){return "teleport|" + 
+    l.getWorld().getName() + ":" +
+    l.getBlockX() + ":" +
+    l.getBlockY() + ":" +
+    l.getBlockZ() + ":" +
+    l.getYaw() + ":" +
+    l.getPitch();
+    }
+    
     public void giveReward(Player player) {
         player.teleport(l);
         

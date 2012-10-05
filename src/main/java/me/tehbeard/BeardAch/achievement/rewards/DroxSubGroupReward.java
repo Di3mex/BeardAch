@@ -16,6 +16,8 @@ public class DroxSubGroupReward implements IReward{
 	public void configure(Achievement Ach,String config) {
 		subgroup = config;
 	}
+	
+	public String save(){return "subgroup|" + subgroup;}
 
 
 	public void giveReward(Player player) {

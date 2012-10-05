@@ -18,6 +18,8 @@ public class CommandReward implements IReward{
 		command = config;
 		
 	}
+	
+	public String save(){return "comm|command";}
 
 	public void giveReward(Player player) {
 		

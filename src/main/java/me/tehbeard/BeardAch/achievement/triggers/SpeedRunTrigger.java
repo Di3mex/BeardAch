@@ -38,7 +38,7 @@ public class SpeedRunTrigger implements ITrigger {
         }
     }
     
-    public String save(){return "speedrun|" + startCuboid.toString() + "/" + + endCuboid.toString() + "/" + timing;}
+    public String save(){return "speedrun|" + startCuboid.toString() + "/" + endCuboid.toString() + "/" + timing;}
 
     public boolean checkAchievement(Player player) {
         

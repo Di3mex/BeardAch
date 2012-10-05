@@ -30,7 +30,7 @@ public class CuboidCheckTrigger implements ITrigger {
 			c.setCuboid(config);
 	}
 	
-	public String save(){return "cuboid|" + cuboid.toString();}
+	public String save(){return "cuboid|" + c.toString();}
 
 	public boolean checkAchievement(Player player) {
 		//if player has stat

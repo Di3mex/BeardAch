@@ -9,7 +9,7 @@ import me.tehbeard.BeardAch.dataSource.configurable.Usage;
 import org.bukkit.entity.Player;
 
 @Configurable(tag="promote")
-@Usage(arguments = { "track|Track to promote user along" }, packageName = "base",dependencies="DroxPerms")
+@Usage(arguments = { "promote|Track to promote user along" }, packageName = "base",dependencies="DroxPerms")
 public class DroxTrackReward implements IReward{
 
 	String track = "";
@@ -18,6 +18,7 @@ public class DroxTrackReward implements IReward{
 		track = config;
 	
 	}
+	public String save(){return "promote|" + track;}
 
 	
 	public void giveReward(Player player) {

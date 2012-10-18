@@ -12,6 +12,12 @@ background-color: #EEEEEE;
 .trigger:nth-child(odd){
 background-color: #DEDEDE;
 }
+.trigger-header{
+font-weight:bold;
+}
+button {
+border: 1px solid black;
+}
 </style>
 <script>
 var triggerMaker = {};
@@ -29,6 +35,9 @@ triggerMaker.ach = function(trigger){
 triggerMaker.bankbalance = function(trigger){
   ach = $("#amount",trigger).val();
   alert("bankbalance|" + ach);
+}
+triggerMaker.locked = function(trigger){
+  alert("locked|");
 }
 
 </script>
@@ -61,29 +70,39 @@ triggerMaker.bankbalance = function(trigger){
 <div class="hidden" style="display:none">
   <div class="achievement">
   <button id="remove">Remove</button><br/>
-  slug: <input id="slug" type="text" /><a class="helpText" text="The unique id of an achievement">?</a><br />
-  
-  name: <input id="name" type="text" /><a class="helpText" text="The name of the achievement that players will see">?</a><br />
-  
-  description: <input id="description" type="text" /><a class="helpText" text="Description of the achievement">?</a><br />
-  
-  alias: <input id="alias" type="text" /><a class="helpText" text="Alias, used if an achievement has two ways to complete it, triggering this achievement will instead unlock the other achievement instead.">?</a><br />
-  
-  Broadcast: <select id="broacast">
+  <table>
+  <tr><td>slug: </td><td><input id="slug" type="text" /><a class="helpText" text="The unique id of an achievement">?</a></td></tr>
+  <tr><td>name: </td><td><input id="name" type="text" /><a class="helpText" text="The name of the achievement that players will see">?</a></td></tr>
+  <tr><td>description: </td><td><input id="description" type="text" /><a class="helpText" text="Description of the achievement">?</a></td></tr>
+  <tr><td>alias: </td><td><input id="alias" type="text" /><a class="helpText" text="Alias allows one achievement to unlock another instead, providing multiple completion paths for an achievement">?</a></td></tr>
+  </td><td>
+  <tr><td>Broadcast: </td><td><select id="broadcast">
   <option value="">default</option>
   <option value="none">NONE</option>
   <option value="person">person only</option>
   <option value="broadcast">Broadcast</option>
-  </select><a class="helpText" text="Defines the action for the unlock message. Default follows the config value.">?</a><br/>
-  
+  </select><a class="helpText" text="Defines the action for the unlock message. Default follows the config value.">?</a></td></tr>
+  </table>
   <h3>Triggers:</h3>
   <select class="triggerType">
   <option value="ach">Has Achievement</option>
   <option value="noach">Does Not Have Achievement</option>
   <option value="wgregion">Inside WorldGuard Region</option>
   <option value="bankbalance">Has Money</option>
+  <option value="locked">Lock</option>
+  <option value="perm">Has Permission</option>
+  <option value="stat">Stat threshold</option>
+  <option value="statwithin">stat between</option>
+  <option value="achcount">Achievements count</option>
+  <option value="interact">Interact</option>
+  <!--TODO IN PART 3
+  <option value="cuboid">Enter cuboid</option>
+  <option value="speedrun">speed run</option>
+  <option value="koth">King Of The Hill</option>
+  <!---->
   </select>
-  <button class="newAch">Add Trigger</button><br />
+  <button class="button newAch">Add Trigger</button><br />
+  <!--Move save button when done-->
   <button id="save">Save</button>
   
   <div class="triggerList"></div>
@@ -94,32 +113,77 @@ triggerMaker.bankbalance = function(trigger){
 
   <div class="trigger-ach trigger">
   <input type="hidden" id="type" value="ach" />
-  <h3>Has Achievement</h3><button id="remove">Remove</button><br/>
+  <span class="trigger-header">Has Achievement</span><button id="remove">Remove</button><br/>
   Achievement slug:<input id ="ach" type="text" />
   </div>
   
   <div class="trigger-noach trigger">
   <input type="hidden" id="type" value="noach" />
-  <h3>Does Not Have Achievement</h3><button id="remove">Remove</button><br/>
+  <span class="trigger-header">Does Not Have Achievement</span><button id="remove">Remove</button><br/>
   Achievement slug:<input id ="ach" type="text" />
   </div>
   
   <div class="trigger-wgregion trigger">
   <input type="hidden" id="type" value="wgregion" />
-  <h3>Inside WorldGuard Region</h3><button id="remove">Remove</button><br/>
+  <span class="trigger-header">Inside WorldGuard Region</span><button id="remove">Remove</button><br/>
   World name:<input id ="world" type="text" /><br/>
   Region name:<input id ="region" type="text" />
   </div>
   
   <div class="trigger-bankbalance trigger">
   <input type="hidden" id="type" value="bankbalance" />
-  <h3>Has Money</h3><button id="remove">Remove</button><br/>
+  <span class="trigger-header">Has Money</span><button id="remove">Remove</button><br/>
   Amount:<input id ="amount" type="text" />
+  </div>
+  
+  <div class="trigger-locked trigger">
+  <input type="hidden" id="type" value="locked" />
+  <span class="trigger-header">Lock Achievement</span><button id="remove">Remove</button><br/>
+  Locked achievements cannot be unlocked by any other triggers!
+  </div>
+  
+  <div class="trigger-perm trigger">
+  <input type="hidden" id="type" value="perm" />
+  <span class="trigger-header">Has Permission</span><button id="remove">Remove</button><br/>
+  permission node: <input id ="node" type="text" />
+  </div>
+  
+  <div class="trigger-stat trigger">
+  <input type="hidden" id="type" value="stat" />
+  <span class="trigger-header">Stat Exceeds Threshold</span><button id="remove">Remove</button><br/>
+  category: <input id ="cat" type="text" /><br />
+  statistic: <input id ="stat" type="text" /><br />
+  threshold: <input id ="value" type="text" /><br />
+  </div>
+  
+  <div class="trigger-statwithin trigger">
+  <input type="hidden" id="type" value="statwithin" />
+  <span class="trigger-header">Stat Between Thresholds</span><button id="remove">Remove</button><br/>
+  category: <input id ="cat" type="text" /><br />
+  statistic: <input id ="stat" type="text" /><br />
+  lower threshold: <input id ="lvalue" type="text" /><br />
+  upper threshold: <input id ="uvalue" type="text" /><br />
+  </div>
+  
+  <div class="trigger-achcount trigger">
+  <input type="hidden" id="type" value="achcount" />
+  <span class="trigger-header">Achievement Counter</span><button id="remove">Remove</button><br/>
+  prefix: <input id ="prefix" type="text" /><br />
+  threshold: <input id ="value" type="text" /><br />
+  </div>
+  
+  <div class="trigger-interact trigger">
+  <input type="hidden" id="type" value="interact" />
+  <span class="trigger-header">Interact</span><button id="remove">Remove</button><br/>
+  world: <input id ="world" type="text" /><br />
+  x: <input id ="x" type="text" /><br />
+  y: <input id ="y" type="text" /><br />
+  z: <input id ="z" type="text" /><br />
   </div>
   
 </div>
 <h1>Achievements</h1>
-<button id="foo">Add new achievement</button>
+<button class="button" id="foo">Add new achievement</button>
 <div id="achList"></div>
 </body>
 </html>

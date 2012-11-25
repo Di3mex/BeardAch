@@ -1,25 +1,24 @@
 package me.tehbeard.BeardAch;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import me.tehbeard.BeardAch.Metrics.Graph;
 import me.tehbeard.BeardAch.Metrics.Plotter;
 import me.tehbeard.BeardAch.achievement.*;
+import me.tehbeard.BeardAch.achievement.help.HelpMaker;
+import me.tehbeard.BeardAch.achievement.help.Usage;
 import me.tehbeard.BeardAch.achievement.rewards.IReward;
 import me.tehbeard.BeardAch.achievement.triggers.*;
 import me.tehbeard.BeardAch.achievement.rewards.*;
 import me.tehbeard.BeardAch.commands.*;
 import me.tehbeard.BeardAch.dataSource.*;
 import me.tehbeard.BeardAch.dataSource.configurable.Configurable;
-import me.tehbeard.BeardAch.dataSource.configurable.ConfigurableHelpTopic;
 import me.tehbeard.BeardAch.dataSource.configurable.IConfigurable;
-import me.tehbeard.BeardAch.dataSource.configurable.Usage;
 import me.tehbeard.BeardStat.BeardStat;
 import me.tehbeard.BeardStat.containers.PlayerStatManager;
 import me.tehbeard.utils.addons.AddonLoader;
@@ -30,8 +29,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.help.HelpTopic;
-import org.bukkit.help.IndexHelpTopic;
-import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -45,15 +42,14 @@ public class BeardAch extends JavaPlugin {
     private PlayerStatManager stats = null;
     private AddonLoader<IConfigurable> addonLoader;
     private Metrics metrics;
-    private List<HelpTopic> configurableTopics = new ArrayList<HelpTopic>();
-    
+
     public static int triggersMetric = 0;
     public static int rewardsMetric = 0;
-    
+
     public static DroxPermsAPI droxAPI = null;
     private WorldGuardPlugin worldGuard;
     private AchievementManager achievementManager;
-    
+
     /**
      * Load BeardAch
      */
@@ -82,11 +78,11 @@ public class BeardAch extends JavaPlugin {
         if (droxPerms != null) {
             droxAPI = droxPerms.getAPI();
         }
-        
+
         //check WorldGuard
         worldGuard = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
-        
-           
+
+
 
 
 
@@ -105,14 +101,14 @@ public class BeardAch extends JavaPlugin {
         achievementManager.database = dataSourceFactory.getProduct(getConfig().getString("ach.database.type",""));
 
         if(achievementManager.database == null){
-            printCon("[ERROR] NO SUITABLE DATABASE SELECTED!!");
-            printCon("[ERROR] DISABLING PLUGIN!!");
+            printError("NO SUITABLE DATABASE SELECTED!!");
+            printError("DISABLING PLUGIN!!");
 
             //onDisable();
             setEnabled(false);
             return;
         }
-
+        HelpMaker.loadTemplates();
         printCon("Installing default triggers");
         //Load installed triggers
         addTrigger(AchCheckTrigger.class);
@@ -128,7 +124,7 @@ public class BeardAch extends JavaPlugin {
         addTrigger(CuboidKingOfTheHillTrigger.class);
         addTrigger(WorldGuardRegionTrigger.class);
         addTrigger(InteractTrigger.class);
-        
+
 
         printCon("Installing default rewards");
         //load installed rewards
@@ -148,26 +144,36 @@ public class BeardAch extends JavaPlugin {
 
 
         //Load built in extras
-        InputStream bundle = getResource("bundle.txt");
+        InputStream bundle = getResource("bundle.properties");
+
         if(bundle!=null){
-            printCon("Loading bundled addons");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(bundle));
-            try {
-                while(reader.ready()){
-                    Class<?> c = getClassLoader().loadClass(reader.readLine());
-                    if(c!=null){
-                        if(ITrigger.class.isAssignableFrom(c)){
-                            triggersMetric ++;
-                            addTrigger((Class<? extends ITrigger>) c);
-                        }else if(IReward.class.isAssignableFrom(c)){
-                            rewardsMetric ++;
-                            addReward((Class<? extends IReward>) c);
+            try{
+                printCon("Loading bundled addons");
+
+                Scanner scanner;
+
+                scanner = new Scanner(bundle);
+                while(scanner.hasNext()){
+                    String ln = scanner.nextLine();
+                    String[] l = ln.split("=");
+                    if(l[0].equalsIgnoreCase("name")){
+                        BeardAch.printCon("Loading bundled addon " + l[1]);
+                    }else if(l[0].equalsIgnoreCase("class")){
+                        Class<?> c = getClassLoader().loadClass(l[1]);
+                        if(c!=null){
+                            if(ITrigger.class.isAssignableFrom(c)){
+                                triggersMetric ++;
+                                addTrigger((Class<? extends ITrigger>) c);
+                            }else if(IReward.class.isAssignableFrom(c)){
+                                rewardsMetric ++;
+                                addReward((Class<? extends IReward>) c);
+                            }
                         }
                     }
-                }
 
-            } catch (IOException e) {
-                printCon("[PANIC] An error occured trying to read the bundle file (bundle.txt)");
+
+                }
+                scanner.close();
             } catch (ClassNotFoundException e) {
                 printCon("[PANIC] Could not load a class listed in the bundle file");
             }
@@ -189,8 +195,9 @@ public class BeardAch extends JavaPlugin {
 
 
         printCon("Enabling help topics");
-        setHelp();
-        
+
+        HelpMaker.writeHelp();
+
         printCon("Loading Achievements");
 
         achievementManager.loadAchievements();
@@ -207,7 +214,6 @@ public class BeardAch extends JavaPlugin {
                 SimplePlotter cr = new SimplePlotter("Custom Rewards");
                 ct.set(triggersMetric);
                 cr.set(rewardsMetric);
-
                 if(getStats()!=null){
                     metrics.addCustomData(new Plotter("BeardStat installed") {
 
@@ -263,7 +269,6 @@ public class BeardAch extends JavaPlugin {
                     }
 
                     rewardsGraph.addPlotter(p);
-
                 }
 
                 DataSourceDescriptor c = achievementManager.database.getClass().getAnnotation(DataSourceDescriptor.class);
@@ -275,8 +280,8 @@ public class BeardAch extends JavaPlugin {
                         // TODO Auto-generated method stub
                         return 1;
                     }}
-                );
-                
+                        );
+
                 metrics.start();
 
             } catch (Exception e) {
@@ -320,7 +325,7 @@ public class BeardAch extends JavaPlugin {
         achievementManager.database.flush();
 
     }
-    
+
     /**
      * Handle unfinished commands
      */
@@ -349,7 +354,7 @@ public class BeardAch extends JavaPlugin {
                 e.printStackTrace();
             }
         }
-        
+
         if(getConfig().contains("ach.msg.send.broadcast")){
             printCon("Updating to new message control config");
             getConfig().set("ach.msg.send", "PERSON");
@@ -362,7 +367,8 @@ public class BeardAch extends JavaPlugin {
      * @param trigger
      */
     public void addTrigger(Class<? extends ITrigger > trigger){
-        makeHelpTopic(trigger);
+        HelpMaker.addTrigger(trigger.getAnnotation(Configurable.class).tag(), trigger.getAnnotation(Usage.class));
+        
         AbstractDataSource.triggerFactory.addProduct(trigger);
     }
     /**
@@ -370,7 +376,7 @@ public class BeardAch extends JavaPlugin {
      * @param reward
      */
     public void addReward(Class<? extends IReward >  reward){
-        makeHelpTopic(reward);
+        HelpMaker.addReward(reward.getAnnotation(Configurable.class).tag(), reward.getAnnotation(Usage.class));
         AbstractDataSource.rewardFactory.addProduct(reward);
     }
 
@@ -389,16 +395,50 @@ public class BeardAch extends JavaPlugin {
         }
         return msg;
     }
-    
+
+    /**
+     * Print error message
+     * @param errMsg
+     */
+    public static void printError(String errMsg){
+        self.getLogger().severe("[ERROR] " + errMsg);
+    }
+    /**
+     * Print error message with an exception
+     * @param errMsg
+     * @param e
+     */
+    public static void printError(String errMsg,Exception e){
+        self.getLogger().severe("[ERROR] " + errMsg);
+        self.getLogger().severe("[ERROR] ==Stack trace dump==");
+        e.printStackTrace();
+        self.getLogger().severe("[ERROR] ==Stack trace dump==");
+    }
+
+
     /**
      * return the achievement manager
      * @return
      */
     public AchievementManager getAchievementManager(){
         return achievementManager;
-
     }
-    
+
+
+    /**
+     * Try to load BeardStat
+     */
+    private void EnableBeardStat(){
+        BeardStat bs = (BeardStat) Bukkit.getServer().getPluginManager().getPlugin("BeardStat");
+        if(bs!=null && bs.isEnabled()){
+            stats = bs.getStatManager();
+        }
+        else
+        {
+            printError("BeardStat not installed! stat and statwithin triggers will not function!");
+        }
+    }
+
     /**
      * Return WorldGuard instance
      * @return
@@ -406,7 +446,7 @@ public class BeardAch extends JavaPlugin {
     public WorldGuardPlugin getWorldGuard() {
         return worldGuard;
     }
-    
+
     /**
      * Returns BeardStat instance
      * @return
@@ -414,7 +454,7 @@ public class BeardAch extends JavaPlugin {
     public PlayerStatManager getStats(){
         return stats;
     }
-    
+
     /**
      * Print console message
      * @param line
@@ -432,34 +472,7 @@ public class BeardAch extends JavaPlugin {
             printCon("[DEBUG] " + line);
         }
     }
-   
 
-    /**
-     * Try to load BeardStat
-     */
-    private void EnableBeardStat(){
-        BeardStat bs = (BeardStat) Bukkit.getServer().getPluginManager().getPlugin("BeardStat");
-        if(bs!=null && bs.isEnabled()){
-            stats = bs.getStatManager();
-        }
-        else
-        {
-            printCon("[PANIC] BeardStat not installed! stat and statwithin triggers will not function!");
-        }
 
-    }
-    
-    
-    private void makeHelpTopic(Class<? extends IConfigurable > configurable){
-        Usage usage = configurable.getAnnotation(Usage.class);
-        Configurable tag = configurable.getAnnotation(Configurable.class);
-        if(usage == null){return;}
-        HelpTopic topic = new ConfigurableHelpTopic(tag.tag(), usage);
-        configurableTopics.add(topic);
-    }
-    
-    private void setHelp(){
-        //TODO: dump to file, /help is crap
-    }
-    
+
 }

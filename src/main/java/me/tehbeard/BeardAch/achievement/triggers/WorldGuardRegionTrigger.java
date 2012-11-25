@@ -2,6 +2,8 @@ package me.tehbeard.BeardAch.achievement.triggers;
 
 import me.tehbeard.BeardAch.BeardAch;
 import me.tehbeard.BeardAch.achievement.Achievement;
+import me.tehbeard.BeardAch.achievement.help.Argument;
+import me.tehbeard.BeardAch.achievement.help.Usage;
 import me.tehbeard.BeardAch.dataSource.configurable.Configurable;
 
 import org.bukkit.Bukkit;
@@ -17,6 +19,10 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 @Configurable(tag="wgregion")
+@Usage(arguments={
+        @Argument(name="world",desc=""),
+        @Argument(name="region name",desc="")
+        },packageName="base",blurb="Fires if player enters the region",dependencies="worldguard")
 public class WorldGuardRegionTrigger implements ITrigger,Listener{
 
     private RegionManager rm;
@@ -33,10 +39,14 @@ public class WorldGuardRegionTrigger implements ITrigger,Listener{
         World w = Bukkit.getWorld(c[0]);
         WorldGuardPlugin wg = BeardAch.self.getWorldGuard();
         if(wg==null){
-            BeardAch.printCon("[ERROR] WorldGuard not loaded! trigger will fail!");
+            BeardAch.printError("WorldGuard not loaded! trigger will fail!");
             return;
         }
         rm = wg.getRegionManager(w);
+        if(rm==null){
+            BeardAch.printError("World not found!");
+            return;
+        }
         world = w.getName();
         region = c[1];
 
@@ -55,7 +65,6 @@ public class WorldGuardRegionTrigger implements ITrigger,Listener{
                 return true;
             }
         }
-        // TODO Auto-generated method stub
         return false;
     }
 

@@ -3,462 +3,463 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.tehbeard</groupId>
 	<artifactId>BeardAch</artifactId>
-	<version>0.5.2-SNAPSHOT</version>
+	<version>0.5.2.1-SNAPSHOT</version>
 	<name>BearchAch</name>
 	<description>Achievements plugin for BeardStat</description>
-	<properties>
-		<project.plugin.flavour>Banana Split</project.plugin.flavour>
-		<project.plugin.version>${project.version}-${project.plugin.flavour}</project.plugin.version>
-	</properties>
+    <properties>
+        <project.plugin.flavour>Banana Split</project.plugin.flavour>
+        <project.plugin.version>${project.version}-${project.plugin.flavour}</project.plugin.version>
+    </properties>
 
-	<profiles>
-		<profile>
-			<id>p-env</id>
-			<dependencies combine.children="append">
-				<dependency>
-					<groupId>com.tehbeard.beardach</groupId>
-					<artifactId>environmental</artifactId>
-					<version>1.0-SNAPSHOT</version>
-				</dependency>
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-shade-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<configuration>
-									<filters combine.children="append">
-										<filter>
-											<artifact>com.tehbeard.beardach:environmental</artifact>
-											<includes>
-												<include>**</include>
-											</includes>
-										</filter>
-									</filters>
-									<transformers combine.children="append">
-										<transformer
-											implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-											<resource>bundle.properties</resource>
-										</transformer>
-									</transformers>
-									<artifactSet>
-										<includes combine.children="append">
-											<include>com.tehbeard.beardach:environmental</include>
-										</includes>
-									</artifactSet>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+    <profiles>
+        <profile>
+            <id>p-env</id>
+            <dependencies combine.children="append">
+                <dependency>
+                    <groupId>com.tehbeard.beardach</groupId>
+                    <artifactId>environmental</artifactId>
+                    <version>1.0-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <filters combine.children="append">
+                                        <filter>
+                                            <artifact>com.tehbeard.beardach:environmental</artifact>
+                                            <includes>
+                                                <include>**</include>
+                                            </includes>
+                                        </filter>
+                                    </filters>
+                                    <transformers combine.children="append">
+                                        <transformer
+                                                implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                            <resource>bundle.properties</resource>
+                                        </transformer>
+                                    </transformers>
+                                    <artifactSet>
+                                        <includes combine.children="append">
+                                            <include>com.tehbeard.beardach:environmental</include>
+                                        </includes>
+                                    </artifactSet>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-		<profile>
-			<id>p-spout</id>
-			<dependencies combine.children="append">
-				<dependency>
-					<groupId>com.tehbeard.beardach</groupId>
-					<artifactId>SpoutPackage</artifactId>
-					<version>0.0.1-SNAPSHOT</version>
-				</dependency>
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-shade-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<configuration>
-									<filters combine.children="append">
-										<filter>
-											<artifact>com.tehbeard.beardach:SpoutPackage</artifact>
-											<includes>
-												<include>**</include>
-											</includes>
-										</filter>
-									</filters>
-									<transformers combine.children="append">
-										<transformer
-											implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-											<resource>bundle.properties</resource>
-										</transformer>
-									</transformers>
-									<artifactSet>
-										<includes combine.children="append">
-											<include>com.tehbeard.beardach:SpoutPackage</include>
-										</includes>
-									</artifactSet>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+        <profile>
+            <id>p-spout</id>
+            <dependencies combine.children="append">
+                <dependency>
+                    <groupId>com.tehbeard.beardach</groupId>
+                    <artifactId>SpoutPackage</artifactId>
+                    <version>0.0.1-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <filters combine.children="append">
+                                        <filter>
+                                            <artifact>com.tehbeard.beardach:SpoutPackage</artifact>
+                                            <includes>
+                                                <include>**</include>
+                                            </includes>
+                                        </filter>
+                                    </filters>
+                                    <transformers combine.children="append">
+                                        <transformer
+                                                implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                            <resource>bundle.properties</resource>
+                                        </transformer>
+                                    </transformers>
+                                    <artifactSet>
+                                        <includes combine.children="append">
+                                            <include>com.tehbeard.beardach:SpoutPackage</include>
+                                        </includes>
+                                    </artifactSet>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-		<profile>
-			<id>p-buscript</id>
-			<dependencies combine.children="append">
-				<dependency>
-					<groupId>com.tehbeard.beardach</groupId>
-					<artifactId>buscripts</artifactId>
-					<version>0.0.1-SNAPSHOT</version>
-				</dependency>
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-shade-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<configuration>
-									<filters combine.children="append">
-										<filter>
-											<artifact>com.tehbeard.beardach:buscripts</artifact>
-											<includes>
-												<include>**</include>
-											</includes>
-										</filter>
-									</filters>
-									<transformers combine.children="append">
-										<transformer
-											implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-											<resource>bundle.properties</resource>
-										</transformer>
-									</transformers>
-									<artifactSet>
-										<includes combine.children="append">
-											<include>com.tehbeard.beardach:buscripts</include>
-										</includes>
-									</artifactSet>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+        <profile>
+            <id>p-buscript</id>
+            <dependencies combine.children="append">
+                <dependency>
+                    <groupId>com.tehbeard.beardach</groupId>
+                    <artifactId>buscripts</artifactId>
+                    <version>0.0.1-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <filters combine.children="append">
+                                        <filter>
+                                            <artifact>com.tehbeard.beardach:buscripts</artifact>
+                                            <includes>
+                                                <include>**</include>
+                                            </includes>
+                                        </filter>
+                                    </filters>
+                                    <transformers combine.children="append">
+                                        <transformer
+                                                implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                            <resource>bundle.properties</resource>
+                                        </transformer>
+                                    </transformers>
+                                    <artifactSet>
+                                        <includes combine.children="append">
+                                            <include>com.tehbeard.beardach:buscripts</include>
+                                        </includes>
+                                    </artifactSet>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-		<profile>
-			<id>p-buscript-lib</id>
-			<repositories combine.children="append">
-				<repository>
-					<id>buscript</id>
-					<url>http://repo.onarandombox.com/content/groups/public/</url>
-				</repository>
-			</repositories>
+        <profile>
+            <id>p-buscript-lib</id>
+            <repositories combine.children="append">
+                <repository>
+                    <id>buscript</id>
+                    <url>http://repo.onarandombox.com/content/groups/public/</url>
+                </repository>
+            </repositories>
 
-			<dependencies combine.children="append">
-				<dependency>
-					<groupId>com.dumptruckman.minecraft</groupId>
-					<artifactId>buscript</artifactId>
-					<version>1.0</version>
-				</dependency>
-			</dependencies>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-shade-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<configuration>
-									<filters combine.children="append">
-										<filter>
-											<artifact>com.dumptruckman.minecraft:buscript</artifact>
-											<includes>
-												<include>**</include>
-											</includes>
-										</filter>
-									</filters>
-									<artifactSet>
-										<includes combine.children="append">
-											<include>com.dumptruckman.minecraft:buscript</include>
-										</includes>
-									</artifactSet>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
-
-	<repositories>
-		<!-- Repository for Bukkit -->
-		<repository>
-			<id>bukkit-repo</id>
-			<url>http://repo.bukkit.org/content/groups/public/</url>
-		</repository>
-		<!--<repository> <id>vault-repo</id> <url>http://ci.herocraftonline.com/plugin/repository/everything</url> 
-			</repository> -->
-		<repository>
-			<id>SK89Q-repo</id>
-			<url>http://maven.sk89q.com/repo/</url>
-		</repository>
-		<repository>
-			<id>escapecraft-repo</id>
-			<url>http://dev.escapecraft.com/maven/</url>
-		</repository>
-
-		<repository>
-			<id>mcStats</id>
-			<url>http://repo.mcstats.org/content/repositories/public</url>
-		</repository>
-	</repositories>
+            <dependencies combine.children="append">
+                <dependency>
+                    <groupId>com.dumptruckman.minecraft</groupId>
+                    <artifactId>buscript</artifactId>
+                    <version>1.0</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <filters combine.children="append">
+                                        <filter>
+                                            <artifact>com.dumptruckman.minecraft:buscript</artifact>
+                                            <includes>
+                                                <include>**</include>
+                                            </includes>
+                                        </filter>
+                                    </filters>
+                                    <artifactSet>
+                                        <includes combine.children="append">
+                                            <include>com.dumptruckman.minecraft:buscript</include>
+                                        </includes>
+                                    </artifactSet>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 
-	<dependencies>
-		<!-- BeardUtils -->
-		<dependency>
-			<groupId>me.tehbeard</groupId>
-			<artifactId>utils</artifactId>
-			<version>1.3</version>
-		</dependency>
-		<!-- Vault -->
-		<dependency>
-			<groupId>net.milkbowl.vault</groupId>
-			<artifactId>Vault</artifactId>
-			<version>1.2.16</version>
-		</dependency>
+    <repositories>
+        <!-- Repository for Bukkit -->
+        <repository>
+            <id>bukkit-repo</id>
+            <url>http://repo.bukkit.org/content/groups/public/</url>
+        </repository>
+        <!--<repository> <id>vault-repo</id> <url>http://ci.herocraftonline.com/plugin/repository/everything</url>
+            </repository> -->
+        <repository>
+            <id>SK89Q-repo</id>
+            <url>http://maven.sk89q.com/repo/</url>
+        </repository>
+        <repository>
+            <id>escapecraft-repo</id>
+            <url>http://dev.escapecraft.com/maven/</url>
+        </repository>
 
-		<!-- BeardStat -->
-		<!-- DroxPerms -->
-
-		<!-- Bukkit -->
-		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>1.5.1-R0.2-SNAPSHOT</version>
-		</dependency>
-
-
-		<!-- WorldGuard -->
-
-		<!-- Gson: Java to Json conversion -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.2.2</version>
-			<scope>compile</scope>
-		</dependency>
-		<!--<dependency>
-			<groupId>tehbeard.annotate</groupId>
-			<artifactId>annotate</artifactId>
-			<version>1.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>BeardAch</artifactId>
-					<groupId>me.tehbeard</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>BeardStat</artifactId>
-					<groupId>com.tehbeard</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>-->
-		<dependency>
-			<groupId>de.hydrox.bukkit</groupId>
-			<artifactId>DroxPerms</artifactId>
-			<version>0.4.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sk89q</groupId>
-			<artifactId>worldguard</artifactId>
-			<version>5.7.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.tehbeard</groupId>
-			<artifactId>BeardStat</artifactId>
-			<version>0.6-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>tehbeard.annotate</groupId>
-			<artifactId>annotate</artifactId>
-			<version>1.1</version>
-		</dependency>
-		
-				<dependency>
-			<groupId>org.mcstats.bukkit</groupId>
-			<artifactId>metrics</artifactId>
-			<version>R7</version>
-		</dependency>
-
-	</dependencies>
+        <repository>
+            <id>mcStats</id>
+            <url>http://repo.mcstats.org/content/repositories/public</url>
+        </repository>
+    </repositories>
 
 
+    <dependencies>
+        <!-- BeardUtils -->
+        <dependency>
+            <groupId>me.tehbeard</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <!-- Vault -->
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.2.16</version>
+        </dependency>
 
-	<distributionManagement>
-		<repository>
-			<id>dev-repo</id>
-			<name>dev.escapecraft.com Releases</name>
-			<url>scp://dev.escapecraft.com/var/www/maven</url>
-		</repository>
-		<snapshotRepository>
-			<id>dev-repo-snap</id>
-			<name>dev.escapecraft.com Snapshots</name>
-			<url>scp://dev.escapecraft.com/var/www/maven</url>
-		</snapshotRepository>
-	</distributionManagement>
-	<build>
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-ssh</artifactId>
-				<version>2.2</version>
-			</extension>
-		</extensions>
-		<resources>
-			<resource>
-				<targetPath>.</targetPath>
-				<filtering>true</filtering>
-				<directory>${basedir}/src/main/resources/</directory>
-				<includes>
-					<include>plugin.yml</include>
-					<include>config.yml</include>
-				</includes>
-			</resource>
+        <!-- BeardStat -->
+        <!-- DroxPerms -->
 
-			<resource>
-				<targetPath>.</targetPath>
-				<filtering>false</filtering>
-				<directory>${project.build.directory}/generated-files/</directory>
-			</resource>
+        <!-- Bukkit -->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.6.1-R0.1-SNAPSHOT</version>
+        </dependency>
 
-		</resources>
 
-		<plugins>
-		      <plugin>
-			      <groupId>org.apache.maven.plugins</groupId>
-			      <artifactId>maven-compiler-plugin</artifactId>
-			      <version>3.0</version>
-			      <configuration>
-				    <source>1.6</source>
-				    <target>1.6</target>
-			      </configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
+        <!-- WorldGuard -->
 
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<finalName>editor</finalName>
-					<outputDirectory>${project.build.directory}/generated-files</outputDirectory>
-					<appendAssemblyId>false</appendAssemblyId>
-					<descriptors>
-						<descriptor>src/main/assembly/package.xml</descriptor>
-					</descriptors>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>1.6</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<artifactSet>
-								<includes>
-									<include>me.tehbeard:utils</include>
-									<include>com.google.code.gson:gson</include>
-									<include>tehbeard.annotate:annotate</include>
-								</includes>
-							</artifactSet>
-							<relocations>
-								<relocation>
-									<pattern>me.tehbeard.utils</pattern>
-									<shadedPattern>me.tehbeard.BeardAch.utils</shadedPattern>
-								</relocation>
-								<relocation>
-									<pattern>com.google.code.gson</pattern>
-									<shadedPattern>me.tehbeard.BeardAch.gson</shadedPattern>
-								</relocation>
-							</relocations>
-							<minimizeJar>true</minimizeJar>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-			<groupId>org.bsc.maven</groupId>
-			<artifactId>maven-processor-plugin</artifactId>
-			<version>2.1.1</version>
-			<executions>
-			<execution>
-			<phase>generate-sources</phase>
-			<goals>
-			<goal>process</goal>
-			</goals>
-			</execution>
-			</executions>
-			<configuration>
-			<processors>
-			<processor>com.tehbeard.annotations.ConfigurableAnnotationProcessor</processor>
-			
-			</processors>
-			<outputDirectory>${project.build.directory}/generated-files</outputDirectory>
-			</configuration>
-			</plugin>
-		</plugins>
+        <!-- Gson: Java to Json conversion -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--<dependency>
+            <groupId>tehbeard.annotate</groupId>
+            <artifactId>annotate</artifactId>
+            <version>1.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>BeardAch</artifactId>
+                    <groupId>me.tehbeard</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>BeardStat</artifactId>
+                    <groupId>com.tehbeard</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
+        <dependency>
+            <groupId>de.hydrox.bukkit</groupId>
+            <artifactId>DroxPerms</artifactId>
+            <version>0.4.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>worldguard</artifactId>
+            <version>5.7.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tehbeard</groupId>
+            <artifactId>BeardStat</artifactId>
+            <version>0.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>tehbeard.annotate</groupId>
+            <artifactId>annotate</artifactId>
+            <version>1.2</version>
+        </dependency>
 
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-assembly-plugin
-										</artifactId>
-										<versionRange>
-											[2.4,)
-										</versionRange>
-										<goals>
-											<goal>single</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+        <dependency>
+            <groupId>org.mcstats.bukkit</groupId>
+            <artifactId>metrics</artifactId>
+            <version>R7</version>
+        </dependency>
+
+    </dependencies>
+
+
+
+    <distributionManagement>
+        <repository>
+            <id>dev-repo</id>
+            <name>dev.escapecraft.com Releases</name>
+            <url>scp://dev.escapecraft.com/var/www/maven</url>
+        </repository>
+        <snapshotRepository>
+            <id>dev-repo-snap</id>
+            <name>dev.escapecraft.com Snapshots</name>
+            <url>scp://dev.escapecraft.com/var/www/maven</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh</artifactId>
+                <version>2.2</version>
+            </extension>
+        </extensions>
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources/</directory>
+                <includes>
+                    <include>plugin.yml</include>
+                    <include>config.yml</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>false</filtering>
+                <directory>${project.build.directory}/generated-files/</directory>
+            </resource>
+
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>editor</finalName>
+                    <outputDirectory>${project.build.directory}/generated-files</outputDirectory>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>src/main/assembly/package.xml</descriptor>
+                    </descriptors>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>me.tehbeard:utils</include>
+                                    <include>com.google.code.gson:gson</include>
+                                    <include>tehbeard.annotate:annotate</include>
+                                    <include>org.mcstats.bukkit:metrics</include>
+                                </includes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>me.tehbeard.utils</pattern>
+                                    <shadedPattern>me.tehbeard.BeardAch.utils</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.google.code.gson</pattern>
+                                    <shadedPattern>me.tehbeard.BeardAch.gson</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <minimizeJar>true</minimizeJar>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <version>2.1.1</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <processors>
+                        <processor>com.tehbeard.annotations.ConfigurableAnnotationProcessor</processor>
+
+                    </processors>
+                    <outputDirectory>${project.build.directory}/generated-files</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.apache.maven.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            maven-assembly-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [2.4,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>single</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

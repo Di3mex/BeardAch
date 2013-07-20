@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import com.google.gson.annotations.Expose;
 
 /**
- * Checks if a players stat is between certain threshold, then triggers. 
+ * Checks if a players stat is between certain threshold, then triggers.
  * @author James
  *
  */
@@ -66,4 +66,48 @@ public class StatCheckTrigger implements ITrigger {
 
     }
 
+
+    /**
+     * Get the category of the stat
+     * @return
+     */
+    public String getCategory(){
+        return cat;
+    }
+
+
+    /**
+     * Get the actual identifier of the stat
+     * @return
+     */
+    public String getStat(){
+        return  stat;
+    }
+
+
+    /**
+     * Get the domain, whatever that is supposed to mean
+     * @return
+     */
+    public String getDomain(){
+        return domain;
+    }
+
+
+    /**
+     * Get the world of this stat
+     * @return
+     */
+    public String getWorld(){
+        return world;
+    }
+
+
+    /**
+     * Get the threshold when the trigger will fire
+     * @return
+     */
+    public int getThreshold(){
+        return threshold;
+    }
 }

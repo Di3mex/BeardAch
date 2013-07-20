@@ -56,4 +56,21 @@ public class AchCountTrigger implements ITrigger {
         
     }
 
+
+    /**
+     * Get the threshold
+     * @return
+     */
+    public int getThreshold(){
+        return threshold;
+    }
+
+
+    /**
+     * Get the prefix for the achievements to count
+     * @return
+     */
+    public String getPrefix(){
+        return prefix;
+    }
 }

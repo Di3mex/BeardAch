@@ -46,4 +46,12 @@ public class AchCheckTrigger implements ITrigger {
         
     }
 
+
+    /**
+     * Get the slug of the achievement to check
+     * @return
+     */
+    public String getSlug (){
+        return ach;
+    }
 }

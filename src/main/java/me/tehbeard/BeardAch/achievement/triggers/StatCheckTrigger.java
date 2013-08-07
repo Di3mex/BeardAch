@@ -5,6 +5,7 @@ import me.tehbeard.BeardAch.dataSource.configurable.Configurable;
 import me.tehbeard.BeardAch.dataSource.json.editor.EditorField;
 import com.tehbeard.BeardStat.BeardStat;
 import com.tehbeard.BeardStat.containers.PlayerStatManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.google.gson.annotations.Expose;
@@ -50,6 +51,8 @@ public class StatCheckTrigger implements ITrigger {
         //if player has stat
         if(manager!=null){
             //if player exceeds threshold
+            BeardStat.printCon(String.format("Checking achievement %s %s %s %s", domain, world, cat, stat));
+            BeardStat.printCon(String.format("Values is %d", manager.findPlayerBlob(player.getName()).getStats(domain,world,cat, stat).getValue()));
             return manager.findPlayerBlob(player.getName()).getStats(domain,world,cat, stat).getValue()>=threshold;
         }
         else

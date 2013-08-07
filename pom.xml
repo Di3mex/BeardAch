@@ -298,19 +298,21 @@
     </dependencies>
 
 
-
+    <!-- maven deployment -->
     <distributionManagement>
         <repository>
-            <id>dev-repo</id>
-            <name>dev.escapecraft.com Releases</name>
-            <url>scp://dev.escapecraft.com/var/www/maven</url>
+            <id>ehm-release</id>
+            <name>extrahardmode.com Releases</name>
+            <url>http://extrahardmode.com:8081/content/repositories/bukkit-plugins/</url>
         </repository>
         <snapshotRepository>
-            <id>dev-repo-snap</id>
-            <name>dev.escapecraft.com Snapshots</name>
-            <url>scp://dev.escapecraft.com/var/www/maven</url>
+            <id>ehm-snapshot</id>
+            <name>extrahardmode.com Snapshots</name>
+            <url>http://extrahardmode.com:8081/content/repositories/bukkit-plugins-snapshot/</url>
         </snapshotRepository>
     </distributionManagement>
+
+
     <build>
         <extensions>
             <extension>

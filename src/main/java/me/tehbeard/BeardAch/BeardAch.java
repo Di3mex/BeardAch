@@ -84,7 +84,7 @@ public class BeardAch extends JavaPlugin {
         //check WorldGuard
         worldGuard = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin("WorldGuard");
 
-        printCon("Loading Data Adapters");
+        printDebugCon("Loading Data Adapters");
         ConfigurableFactory<IDataSource,DataSourceDescriptor> dataSourceFactory = new ConfigurableFactory<IDataSource, DataSourceDescriptor>(DataSourceDescriptor.class) {
 
             @Override
@@ -106,7 +106,7 @@ public class BeardAch extends JavaPlugin {
             setEnabled(false);
             return;
         }
-        printCon("Installing default triggers and rewards");
+        printDebugCon("Installing default triggers and rewards");
         
         Scanner s = new Scanner(getResource("components.txt"));
         while(s.hasNextLine()){
@@ -133,7 +133,7 @@ public class BeardAch extends JavaPlugin {
 
         if(bundle!=null){
             try{
-                printCon("Loading bundled addons");
+                printDebugCon("Loading bundled addons");
 
                 Scanner scanner;
 
@@ -142,7 +142,7 @@ public class BeardAch extends JavaPlugin {
                     String ln = scanner.nextLine();
                     String[] l = ln.split("=");
                     if(l[0].equalsIgnoreCase("name")){
-                        BeardAch.printCon("Loading bundled addon " + l[1]);
+                        BeardAch.printDebugCon("Loading bundled addon " + l[1]);
                     }else if(l[0].equalsIgnoreCase("class")){
                         Class<?> c = getClassLoader().loadClass(l[1]);
                         if(c!=null){
@@ -160,12 +160,12 @@ public class BeardAch extends JavaPlugin {
                 }
                 scanner.close();
             } catch (ClassNotFoundException e) {
-                printCon("[PANIC] Could not load a class listed in the bundle file");
+                printDebugCon("[PANIC] Could not load a class listed in the bundle file");
             }
         }        
 
 
-        printCon("Preparing to load addons");
+        printDebugCon("Preparing to load addons");
         //Create addon dir if it doesn't exist
         File addonDir = (new File(getDataFolder(),"addons"));
         if(!addonDir.exists()){
@@ -175,10 +175,10 @@ public class BeardAch extends JavaPlugin {
         //create the addon loader
         addonLoader = new BeardAchAddonLoader(addonDir);
 
-        printCon("Loading addons");
+        printDebugCon("Loading addons");
         addonLoader.loadAddons();
 
-        printCon("Writing editor settings");
+        printDebugCon("Writing editor settings");
         new File(getDataFolder(),"editor").mkdirs();
         try {
 			json.write(new File(getDataFolder(),"editor/settings.js"));
@@ -187,7 +187,7 @@ public class BeardAch extends JavaPlugin {
 		}
         exportEditor();
 
-        printCon("Loading Achievements");
+        printDebugCon("Loading Achievements");
 
         achievementManager.loadAchievements();
 
@@ -272,16 +272,16 @@ public class BeardAch extends JavaPlugin {
                 metrics.start();
 
             } catch (Exception e) {
-                printCon("Could not load metrics :(");
-                printCon("Please send the following stack trace to Tehbeard");
-                printCon("=======================");
+                printDebugCon("Could not load metrics :(");
+                printDebugCon("Please send the following stack trace to Tehbeard");
+                printDebugCon("=======================");
                 e.printStackTrace();
-                printCon("=======================");
+                printDebugCon("=======================");
             }
 
         }
 
-        printCon("Starting achievement checker");
+        printDebugCon("Starting achievement checker");
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 
             public void run() {
@@ -293,13 +293,13 @@ public class BeardAch extends JavaPlugin {
         //setup events
         getServer().getPluginManager().registerEvents(achievementManager,this);
 
-        printCon("Loading commands");
+        printDebugCon("Loading commands");
         //commands
 
         getCommand("ach-reload").setExecutor(new AchReloadCommand());
         getCommand("ach").setExecutor(new AchCommand());
         getCommand("ach-fancy").setExecutor(new AchFancyCommand());
-        printCon("Loaded Version:" + getDescription().getVersion());
+        printDebugCon("Loaded Version:" + getDescription().getVersion());
 
 
     }

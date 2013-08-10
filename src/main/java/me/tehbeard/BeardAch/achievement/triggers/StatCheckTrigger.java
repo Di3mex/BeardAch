@@ -51,8 +51,8 @@ public class StatCheckTrigger implements ITrigger {
         //if player has stat
         if(manager!=null){
             //if player exceeds threshold
-            BeardStat.printCon(String.format("Checking achievement %s %s %s %s", domain, world, cat, stat));
-            BeardStat.printCon(String.format("Values is %d", manager.findPlayerBlob(player.getName()).getStats(domain,world,cat, stat).getValue()));
+            BeardStat.printDebugCon(String.format("Checking achievement %s %s %s %s", domain, world, cat, stat));
+            BeardStat.printDebugCon(String.format("Values is %d", manager.findPlayerBlob(player.getName()).getStats(domain,world,cat, stat).getValue()));
             return manager.findPlayerBlob(player.getName()).getStats(domain,world,cat, stat).getValue()>=threshold;
         }
         else
